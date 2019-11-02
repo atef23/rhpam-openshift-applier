@@ -3,6 +3,7 @@ ansible_connection: local
 namespace:
 
 openshift_cluster_content:
+
 - object: secrets
   content:
     - name: Create businesscentral-app-secret
@@ -10,8 +11,9 @@ openshift_cluster_content:
       params:
       namespace: "{{ namespace }}"
       tags:
-      - all
       - create-secrets
+      - deploy-authoring-template
+
 - object: secrets
   content:
     - name: Create kieserver-app-secret
@@ -19,8 +21,9 @@ openshift_cluster_content:
       params:
       namespace: "{{ namespace }}"
       tags:
-      - all
       - create-secrets
+      - deploy-authoring-template
+
 - object: rhpam71-image-streams
   content:
     - name: Import RHPAM 7.1 Image Streams
@@ -28,16 +31,28 @@ openshift_cluster_content:
       params:
       namespace: "{{ namespace }}"
       tags:
-      - all
       - import-imagestreams
+      - deploy-trial-ephemeral-template
+      - deploy-authoring-template
+
 - object: rhpam71-trial-ephemeral-deploy
   content:
     - name: Deploy RHPAM 7.1 Trial Ephemeral App
-      template: "rhpam71-trial-ephemeral"
+      template: "{{ inventory_dir }}/../templates/rhpam71-trial-ephemeral.yml"
       params: "{{ inventory_dir }}/../params/rhpam71-trial-ephemeral-params"
       params_from_vars:
         IMAGE_STREAM_NAMESPACE: "{{ namespace }}"
       namespace: "{{ namespace }}"
       tags:
-      - all
       - deploy-trial-ephemeral-template
+
+- object: rhpam71-authoring-deploy
+  content:
+    - name: Deploy RHPAM 7.1 Authoring App
+      template: "{{ inventory_dir }}/../templates/rhpam71-authoring.yml"
+      params: "{{ inventory_dir }}/../params/rhpam71-authoring-params"
+      params_from_vars:
+        IMAGE_STREAM_NAMESPACE: "{{ namespace }}"
+      namespace: "{{ namespace }}"
+      tags:
+      - deploy-authoring-template
