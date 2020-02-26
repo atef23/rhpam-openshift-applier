@@ -16,6 +16,6 @@ This project runs the Openshift Applier ( https://github.com/redhat-cop/openshif
 
 `ansible-galaxy install -r requirements.yml -p roles`
 
-`ansible-playbook -i inventory/ apply.yml -e include_tags=deploy-authoring-template -e namespace=rhpam-applier`
+`ansible-playbook -i inventory/ apply.yml -e include_tags=deploy-authoring-template -e namespace=<openshift_namespace>`
 
 Use include_tags to run various installation configurations (deploy-authoring-template, deploy-trial-ephemeral-template, etc)
