@@ -1,5 +1,5 @@
 # RHPAM Openshift Applier
-This project runs the Openshift Applier ( https://github.com/redhat-cop/openshift-applier ) ansible playbook with Red Hat Process Automation Manager (RHPAM) installation tasks
+This project runs the Openshift Applier ( https://github.com/redhat-cop/openshift-applier ) ansible role with Red Hat Process Automation Manager (RHPAM) installation tasks
 
 ## Prerequisites
 - Ansible Installed
